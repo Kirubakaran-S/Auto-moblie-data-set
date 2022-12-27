@@ -1,0 +1,129 @@
+!pip install -U -q PyDrive
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+from google.colab import auth
+from oauth2client.client import GoogleCredentials
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+import numpy as np
+import pandas as pd
+df=pd.read_csv('/content/drive/MyDrive/Data science/Automobile price data _Raw_.csv.csv')
+
+df.head()
+#outputs the top 5 rows of the data frame
+
+df.shape
+#outputs the number of rows and coloumns in our data frame
+
+df.describe()
+#outputs the statistical info of each coloumns of df
+
+df.isnull().sum()
+#outputs the number of empty coloumns
+
+df["symboling"].unique()
+#outputs the unique values of the selected coloumns
+
+df["normalized-losses"].unique()
+
+df['normalized-losses'].loc[df['normalized-losses'] == '?'].count()
+
+df['normalized-losses'].loc[df['normalized-losses'].str.isnumeric() == False]
+
+
+nl = df['normalized-losses'] .loc[df['normalized-losses'] != '?']
+nl_m = nl.astype(str).astype(int).mean()
+df['normalized-losses'] = df['normalized-losses'] .replace('?',nl_m).astype(int)
+df['normalized-losses'].head()
+
+df["make"].unique()
+
+df["fuel-type"].unique()
+
+df["aspiration"].unique()
+
+df["num-of-doors"].unique()
+
+df['num-of-doors'].loc[df['num-of-doors'] == '?'].count()
+
+
+# remove the records which are having the value '?'
+df['num-of-doors'].loc[df['num-of-doors'] == '?']
+df = df[df['num-of-doors'] != '?']
+df['num-of-doors'].loc[df['num-of-doors'] == '?']
+
+df["body-style"].unique()
+
+df["drive-wheels"].unique()
+
+df["engine-location"].unique()
+
+df["wheel-base"].unique()
+
+df["length"].unique()
+
+df["width"].unique()
+
+df["height"].unique()
+
+df["curb-weight"].unique()
+
+df["engine-size"].unique()
+
+df["num-of-cylinders"].unique()
+
+df["engine-type"].unique()
+
+df["fuel-system"].unique()
+
+df["bore"].unique()
+
+bore = df['bore'] .loc[df['bore'] != '?']
+bore_m = bore.astype(str).astype(float).mean()
+df['bore'] = df['bore'] .replace('?',bore_m).astype(float)
+df['bore'].head()
+
+stroke= df['stroke'] .loc[df['stroke'] != '?']
+stroke_m = stroke.astype(str).astype(float).mean()
+df['stroke'] = df['stroke'] .replace('?',stroke_m).astype(float)
+df['stroke'].head()
+
+df['stroke'].unique()
+
+df["compression-ratio"].unique()
+
+df["horsepower"].unique()
+
+horsepower = df['horsepower'] .loc[df['horsepower'] != '?']
+horsepower_m= horsepower.astype(str).astype(float).mean()
+df['horsepower'] = df['horsepower'] .replace('?',bore_m).astype(float)
+df['horsepower'].head()
+
+df["peak-rpm"].unique()
+
+peak = df['peak-rpm'] .loc[df['peak-rpm'] != '?']
+peak_m= peak.astype(str).astype(float).mean()
+df['peak-rpm'] = df['peak-rpm'] .replace('?',peak_m).astype(float)
+df['peak-rpm'].head()
+
+df["city-mpg"].unique()
+
+df["highway-mpg"].unique()
+
+df["horsepower"].unique()
+
+df["price"].unique()
+
+df['price'].loc[df['price'] == '?'].count()
+
+price = df['price'] .loc[df['price'] != '?']
+price_m= price.astype(str).astype(float).mean()
+df['price'] = df['price'] .replace('?',price_m).astype(float)
+df['price'].head()
+
+
+
+df.to_csv('automoblie_clean.csv',index=False)
+
